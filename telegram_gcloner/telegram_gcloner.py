@@ -24,6 +24,8 @@ from telegram.utils.request import Request as TGRequest
 
 
 from utils.config_loader import config
+from flask import Flask, request
+from flask_restful import Resource, Api
 
 
 logger = logging.getLogger(__name__)
@@ -99,8 +101,18 @@ class MQBot(telegram.bot.Bot):
         OPTIONAL arguments"""
         return super(MQBot, self).leave_chat(*args, **kwargs)
 
+app_f = Flask(__name__)
+api = Api(app_f)
+
+class Greeting (Resource):
+    def get(self):
+        return 'Hello World!'
+
+api.add_resource(Greeting, '/')
+
 
 def main():
+    app_f.run('0.0.0.0','8080')
     log_file = init_logger()
     config.load_config()
     config.LOG_FILE = log_file
@@ -219,7 +231,6 @@ def error(update, context):
         context.bot.send_message(dev_id, text, parse_mode=ParseMode.HTML)
     # we raise the error again, so the logger module catches it. If you don't use the logger module, use it.
     raise
-
 
 if __name__ == '__main__':
     main()
