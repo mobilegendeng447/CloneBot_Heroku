@@ -112,7 +112,7 @@ api.add_resource(Greeting, '/')
 
 
 def main():
-    app_f.run('0.0.0.0','8080')
+    #app_f.run('0.0.0.0','8080')
     log_file = init_logger()
     config.load_config()
     config.LOG_FILE = log_file
