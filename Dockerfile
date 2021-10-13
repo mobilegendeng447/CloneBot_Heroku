@@ -16,4 +16,5 @@ ENV LC_ALL en_US.UTF-8
 COPY . .
 RUN chmod +x start.sh
 RUN chmod +x gclone
+EXPOSE 8080 80
 CMD ["bash","start.sh"]
